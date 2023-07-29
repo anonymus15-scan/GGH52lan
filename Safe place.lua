@@ -1,5 +1,5 @@
 
-  loca terrain = Game.Workspace
+  local terrain = Game.Workspace
  local Players = Game.Players 
  local plr = Players.LocalPlayer
  local oldPos = nil
