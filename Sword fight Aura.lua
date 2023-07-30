@@ -126,18 +126,28 @@ Window:Box("Reach - 10", function(text, focuslost)
    if focuslost then
    if not tonumber(text) then
     reach = tostring(10 or 10 and tonumber(string.format("%.2f", 10)))
-           text=reach
     notify(reach, "nope string is wrong current reach is 10")
     elseif text == "" or tonumber(text) <= 10 then
     reach = 10
-           text=reach
     notify("minimum", "the minimum reach is 10, current reach: "..reach)
     elseif text == "" or tonumber(text) >= 40 then
     reach = 40
-           text=reach
     notify("maximum", "the maximum reach is 40, current reach: "..reach)
     end
    end
+end)
+
+Window:Box("Tool name", function(text, focuslost)
+ if focuslost then
+   if findTool(text) ~= nil then
+    _G.name = tostring(text)
+notify("Tool found:", tostring(text))
+else
+notify("Tool not found:", "no ".. text.. ". in ur backpack")
+wait(1)
+notify("it's ok", "if it just not equipped it well auto equip if u have")
+end
+end
 end)
 
 local dropdown = Window:Dropdown("Mode", {"enemies only", "others"}, function(o)
@@ -147,3 +157,15 @@ local dropdown = Window:Dropdown("Mode", {"enemies only", "others"}, function(o)
     _G.enemOnly = false
     end
 end)
+
+local dropdown1 = Window:Dropdown("inventory", {}, function(o)
+    
+end)
+wait(5)
+for i,v in pairs(plr.Backpack:GetChildren()) do
+if v:IsA"Tool" then
+dropdown1:Button(tostring(v.name))
+		wait(.5)
+	end
+end
+notify("","inventory loaded")
