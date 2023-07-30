@@ -112,7 +112,7 @@ function KillAura()
 
 local function modeDetector(b)
 if auto==true then
-if not Teams: FindFirstChildOfClass "Team" then
+if not game:GetService"Teams": FindFirstChildOfClass "Team" then
 Mode = "others"
 	else
 		Mode = "enemy"
