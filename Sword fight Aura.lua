@@ -5,11 +5,10 @@ local retry = true
 _G.name = "sword"
 _G.enemOnly = true
 local reach = 10
-local buttons = {}
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
 
-local Window = library:Window("KillAura")
+local Window = library:Window("Sword Fight Aura")
 
 function findTool(String)
     local strl = String:lower()
@@ -170,3 +169,5 @@ local dropdown = Window:Dropdown("Mode", {"enemies only", "others"}, function(o)
     _G.enemOnly = false
     end
 end)
+
+notify ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",10)
