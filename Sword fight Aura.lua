@@ -5,6 +5,7 @@ local retry = true
 _G.name = "sword"
 _G.enemOnly = true
 local reach = 10
+local buttons = {}
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
 
@@ -122,6 +123,18 @@ Window:Button("Off", function()
     retry = false    
 end)
 
+Window:Button("notify Tool name", function()
+for I,v in pairs (plr.Character: GetChildren ()) do
+if v:IsA"Tool" then
+notify (v.Name, v.name)
+wait(1)
+end
+end
+if not plr.Character: FindFirstChildOfClass"Tool" then
+notify ("Equip Tool", "Equip Tool")
+end
+end)
+
 Window:Box("Reach - 10", function(text, focuslost)
    if focuslost then
    if not tonumber(text) then
@@ -157,15 +170,3 @@ local dropdown = Window:Dropdown("Mode", {"enemies only", "others"}, function(o)
     _G.enemOnly = false
     end
 end)
-
-local dropdown1 = Window:Dropdown("inventory", {}, function(o)
-    
-end)
-wait(5)
-for i,v in pairs(plr.Backpack:GetChildren()) do
-if v:IsA"Tool" then
-dropdown1:Button(tostring(v.name))
-		wait(.5)
-	end
-end
-notify("","inventory loaded")
