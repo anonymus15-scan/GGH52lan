@@ -3,8 +3,10 @@ local plr = Players.LocalPlayer
 local loop = true
 local retry = true
 _G.name = "sword"
-_G.enemOnly = true
+Mode = ""
+Modes = {"enemy", "others"}
 local reach = 10
+local auto=true
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
 
@@ -31,7 +33,7 @@ end
 
 function KillAura()
     loop = true
-    if _G.enemOnly == true then
+    if Mode == "enemy" then
     repeat
     for i,v in pairs(game.Players:GetPlayers()) do
 	pcall(function()
@@ -62,7 +64,7 @@ function KillAura()
     game:GetService("RunService").Heartbeat:Wait()
     until loop == false
 
-    else
+    elseif Mode = "others" then
 
     repeat
     for i,v in pairs(game.Players:GetPlayers()) do
@@ -93,6 +95,7 @@ function KillAura()
 	end
     game:GetService("RunService").Heartbeat:Wait()
     until loop == false
+		
     end
     end
 
@@ -107,11 +110,27 @@ function KillAura()
 })
     end
 
+local function modeDetector(b)
+if auto==true then
+if not Teams: FindFirstChildOfClass "Team" then
+Mode = "others"
+	else
+		Mode = "enemy"
+	end
+	else
+		
+	end
+end
+
 Window:Button("On", function()
+		if Mode == "" then
+notify ("please", "select mode")
+		else
+    modeDetector()
     loop = true
     retry = true
     KillAura()
-    
+		end
 end)
 
 Window:Button("Off", function()
@@ -162,11 +181,15 @@ end
 end
 end)
 
-local dropdown = Window:Dropdown("Mode", {"enemies only", "others"}, function(o)
+local dropdown = Window:Dropdown("Mode", {"auto", "enemies only", "others"}, function(o)
     if o == "enemies only" then
-    _G.enemOnly = true
+    Mode = "enemy"
+			auto=false
     elseif o == "others" then
-    _G.enemOnly = false
+     Mode = "others"
+			auto=false
+		elseif o == "auto" then
+			auto = true
     end
 end)
 
