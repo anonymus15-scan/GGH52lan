@@ -3,7 +3,7 @@ local plr = Players.LocalPlayer
 local loop = true
 local retry = true
 _G.name = "sword"
-Mode = ""
+Mode = "enemy"
 Modes = {"enemy", "others"}
 local reach = 10
 local auto=true
@@ -123,14 +123,11 @@ Mode = "others"
 end
 
 Window:Button("On", function()
-		if Mode == "" then
-notify ("please", "select mode")
-		elseif auto == true then
     modeDetector()
     loop = true
     retry = true
     KillAura()
-		end
+
 end)
 
 Window:Button("Off", function()
