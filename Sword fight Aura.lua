@@ -64,7 +64,7 @@ function KillAura()
     game:GetService("RunService").Heartbeat:Wait()
     until loop == false
 
-    elseif Mode = "others" then
+    elseif Mode == "others" then
 
     repeat
     for i,v in pairs(game.Players:GetPlayers()) do
