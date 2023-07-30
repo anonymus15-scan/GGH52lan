@@ -125,7 +125,7 @@ end
 Window:Button("On", function()
 		if Mode == "" then
 notify ("please", "select mode")
-		else
+		elseif auto == true then
     modeDetector()
     loop = true
     retry = true
