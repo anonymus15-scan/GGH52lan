@@ -100,39 +100,45 @@ function KillAura()
     end
     end
   
-  local function notify1(Title, Text, Duration, Button, F)
-  Title= Title or "GGH" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
+  local function notify1(Title, Text, con, Duration, Button, F)
+  Title= Title or "GGH52Lan" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
   F = F or function() end
+  con = con or "rbxassetid://14260295451"
  N.OnInvoke = F
   game:GetService("StarterGui"):SetCore("SendNotification",{
 Title = Title;
 Text = Text;
+Icon = con;
 Duration = Duration;
 Button1 = Button;
 Callback = N;})
   end
 
-local function notify2(Title, Text, Duration, Button,B , F)
-  Title= Title or "GGH" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
+local function notify2(Title, Text, con, Duration, Button,B , F)
+  Title= Title or "GGH52Lan" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
   F = F or function() end
+  con = con or "rbxassetid://14260295451"
  N.OnInvoke = F
   game:GetService("StarterGui"):SetCore("SendNotification",{
 Title = Title;
 Text = Text;
+Icon = con;
 Duration = Duration;
 Button1 = Button;
 Button2 = B;
 Callback = N;})
   end
   
-  local function notify(Title, Text, Duration)
-     Text = Text or "Text" 
-     Title= Title or "Title"
+  local function notify(Title, Text, con, Duration)
+     Text = Text or "GGH52Lan" 
+     Title= Title or "GGH52Lan"
+     con = con or "rbxassetid://14260295451"
      Duration = Duration or 5
     game:GetService("StarterGui"):SetCore("SendNotification",{
- Title = Title, 
- Text = Text,
- Duration = Duration,
+ Title = Title;
+ Text = Text;
+ Duration = Duration;
+ Icon = con;
 })
     end
 
@@ -177,20 +183,20 @@ end)
 Window:Button("notify Tool name", function()
 for i,v in pairs (plr.Character: GetChildren ()) do
 if v:IsA"Tool" then
-notify2(v.Name, v.name, 60, "TargetTool", "Ok", function (t)
+notify2(v.Name, v.name, nil, 60, "TargetTool", "Ok", function (t)
 if t == "TargetTool" then
 _G.name = tostring(v.Name)
 wait(1)
 notify("Target Tool:", _G.name)
 elseif t == "Ok" then
-notify("👍","👍")
+notify(nil, "👍")
 end
 end)
 wait(1)
 end
 end
 if not plr.Character: FindFirstChildOfClass"Tool" then
-notify ("Equip Tool", "Equip Tool")
+notify (nil, "Equip Tool")
 end
 end)
 
@@ -198,20 +204,20 @@ Window:Box("Reach - 10", function(text, focuslost)
    if focuslost then
    if not tonumber(text) then
     reach = tostring(10 or 10 and tonumber(string.format("%.2f", 10)))
-    notify(reach, "only number is allowed, current reach: "..reach)
+    notify(nil, "only number is allowed, current reach: "..reach)
     elseif text == "" or tonumber(text) <= 10 then
     reach = 10
-    notify("minimum", "the minimum reach is 10, current reach: "..reach)
+    notify(nil, "the minimum reach is 10, current reach: "..reach)
     elseif text == "" or tonumber(text) >= 40 then
     reach = 40
-    notify("maximum", "the maximum reach is 40, current reach: "..reach)
+    notify(nil, "the maximum reach is 40, current reach: "..reach)
     end
    end
 end)
 
 Window:Box("Tool name", function(text, focuslost)
  if focuslost then
-   if findTool(text) ~= nil then
+   if findTool(text) ~= nil then 
     _G.name = tostring(text)
 notify("Tool found:", tostring(_G.name))
 else
@@ -233,11 +239,12 @@ local dropdown = Window:Dropdown("Mode", {"auto", "enemies only", "others"}, fun
     end
 end)
 
-notify2 ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",60,"Copy", "👍", function (G)
+notify2 ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",nil, 60,"Copy", "👍", function (G)
 if G=="Copy" then
 GC("https://www.youtube.com/@RandomVidzz-G")
+notify ("copied", "copied", "rbxassetid://14260295451")
 elseif G=="👍" then
-
+notify(":(", ":(", "rbxassetid://14260616969")
 end
 end)
 return _G.name
