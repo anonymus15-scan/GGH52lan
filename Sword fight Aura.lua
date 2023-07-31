@@ -7,6 +7,7 @@ Mode = "enemy"
 Modes = {"enemy", "others"}
 local reach = 10
 local auto=true
+local N = Instance.new("BindableFunction")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
 
@@ -98,7 +99,32 @@ function KillAura()
 		
     end
     end
+  
+  local function notify1(Title, Text, Duration, Button, F)
+  Title= Title or "GGH" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
+  F = F or function() end
+ N.OnInvoke = F
+  game:GetService("StarterGui"):SetCore("SendNotification",{
+Title = Title;
+Text = Text;
+Duration = Duration;
+Button1 = Button;
+Callback = N;})
+  end
 
+local function notify2(Title, Text, Duration, Button,B , F)
+  Title= Title or "GGH" Text = Text or "Text" Duration = Duration or 5 Button= Button or "Button"
+  F = F or function() end
+ N.OnInvoke = F
+  game:GetService("StarterGui"):SetCore("SendNotification",{
+Title = Title;
+Text = Text;
+Duration = Duration;
+Button1 = Button;
+Button2 = B;
+Callback = N;})
+  end
+  
   local function notify(Title, Text, Duration)
      Text = Text or "Text" 
      Title= Title or "Title"
@@ -110,7 +136,17 @@ function KillAura()
 })
     end
 
-local function modeDetector(b)
+function GC(String)
+	local clipBoard = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set)
+	if clipBoard then
+		clipBoard(String)
+		notify('Clipboard','Copied to clipboard')
+	else
+		notify('Clipboard',"Something went wrong 😕")
+	end
+end
+
+local function modeDetector(b) 
 if auto==true then
 if not game:GetService"Teams": FindFirstChildOfClass "Team" then
 Mode = "others"
@@ -139,9 +175,17 @@ Window:Button("Off", function()
 end)
 
 Window:Button("notify Tool name", function()
-for I,v in pairs (plr.Character: GetChildren ()) do
+for i,v in pairs (plr.Character: GetChildren ()) do
 if v:IsA"Tool" then
-notify (v.Name, v.name)
+notify2(v.Name, v.name, 60, "TargetTool", "Ok", function (t)
+if t == "TargetTool" then
+_G.name = tostring(v.Name)
+wait(1)
+notify("Target Tool:", _G.name)
+elseif t == "Ok" then
+notify("👍","👍")
+end
+end)
 wait(1)
 end
 end
@@ -154,7 +198,7 @@ Window:Box("Reach - 10", function(text, focuslost)
    if focuslost then
    if not tonumber(text) then
     reach = tostring(10 or 10 and tonumber(string.format("%.2f", 10)))
-    notify(reach, "nope string is wrong current reach is 10")
+    notify(reach, "only number is allowed, current reach: "..reach)
     elseif text == "" or tonumber(text) <= 10 then
     reach = 10
     notify("minimum", "the minimum reach is 10, current reach: "..reach)
@@ -169,11 +213,10 @@ Window:Box("Tool name", function(text, focuslost)
  if focuslost then
    if findTool(text) ~= nil then
     _G.name = tostring(text)
-notify("Tool found:", tostring(text))
+notify("Tool found:", tostring(_G.name))
 else
 notify("Tool not found:", "no ".. text.. ". in ur backpack")
 wait(1)
-notify("it's ok", "if it just not equipped it well auto equip if u have")
 end
 end
 end)
@@ -190,4 +233,12 @@ local dropdown = Window:Dropdown("Mode", {"auto", "enemies only", "others"}, fun
     end
 end)
 
-notify ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",10)
+notify2 ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",60,"Copy", "👍", function (G)
+if G=="Copy" then
+GC("https://www.youtube.com/@RandomVidzz-G")
+elseif G=="👍" then
+
+end
+end)
+return _G.name
+
