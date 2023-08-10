@@ -22,7 +22,7 @@ end
 Players = game:GetService("Players")
 TeleportService = game:GetService("TeleportService")
 
-rejoin.MouseButton1Up:Connect(function()
+rejoin.MouseButton1Click:Connect(function()
  if #Players:GetPlayers() <= 1 then
 game.Players.localPlayer:kick("Rejoining...")
 rejoin: destroy ()
