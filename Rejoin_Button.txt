@@ -10,9 +10,11 @@ gui.MessageArea.ErrorFrame.ErrorFrameLayout.Padding = UDim.new(0, 5)
 
 gui.MessageArea.ErrorFrame.ButtonArea.ButtonLayout.CellPadding = UDim2.new(0, 0, 0, 5)
 
+if not leave.Parent:FindFirstChild"Rejoin" then
 rejoin = leave:Clone()
 rejoin.Parent = leave.Parent
 rejoin.ButtonText.Text = "Rejoin"
+end
 
 Players = game:GetService("Players")
 TeleportService = game:GetService("TeleportService")
