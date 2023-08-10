@@ -32,3 +32,10 @@ wait(1)
   TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
  end
 end)
+
+game:GetService("StarterGui"):SetCore("SendNotification",{
+ Title = "GGH52Lan";
+ Text = "Executed";
+ Duration = 5;
+ Icon = "rbxassetid://14260295451";
+})
