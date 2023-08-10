@@ -15,7 +15,7 @@ local Window = Library.CreateLib("TITLE", "Serpent")
 local Tab = Window:NewTab("TabName")
 local Section = Tab:NewSection("Section Name")
 
-Section:NewButton("ButtonText", "ButtonInfo", function()
+local button= Section:NewButton("ButtonText", "ButtonInfo", function()
     print("Clicked")
 end)
 
