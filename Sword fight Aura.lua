@@ -1,3 +1,10 @@
+--[[ by GGH52Lan
+YT: https://www.youtube.com/@RandomVidzz-G
+pls if u remake this script put a credit or a original creator Ex: (credit to GGH52Lan) or (original script is from GGH52Lan)
+i Open source cuz for people who want to remake it and make better
+
+]]
+
 local Players = game.Players
 local plr = Players.LocalPlayer
 local loop = true
@@ -242,7 +249,6 @@ end)
 notify2 ("YT: Random Vidzz", "https://www.youtube.com/@RandomVidzz-G",nil, 60,"Copy", "👍", function (G)
 if G=="Copy" then
 GC("https://www.youtube.com/@RandomVidzz-G")
-notify ("copied", "copied", "rbxassetid://14260295451")
 elseif G=="👍" then
 notify(":(", ":(", "rbxassetid://14260616969")
 end
