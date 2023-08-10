@@ -1,6 +1,14 @@
 --game.Players.localPlayer:kick() --remove "--" to kick u self
  
 --Auto execute highly recommended (use it)
+
+game:GetService("StarterGui"):SetCore("SendNotification",{
+ Title = "GGH52Lan";
+ Text = "Executed";
+ Duration = 5;
+ Icon = "rbxassetid://14260295451";
+})
+
 gui = game.CoreGui.RobloxPromptGui.promptOverlay:WaitForChild("ErrorPrompt")
 
 gui.Size = UDim2.new(0, 400, 0, 230)
@@ -32,10 +40,3 @@ wait(1)
   TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
  end
 end)
-
-game:GetService("StarterGui"):SetCore("SendNotification",{
- Title = "GGH52Lan";
- Text = "Executed";
- Duration = 5;
- Icon = "rbxassetid://14260295451";
-})
