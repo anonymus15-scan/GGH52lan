@@ -1,69 +1,494 @@
---game:HttpGet(("https://raw.githubusercontent.com/sunsworn1020903/sunsworn1020903/main/Anti%20flung"), true))()
---⬆️ my old anti fling it's bad cuz if alot of players in game u will get low fps so i remake it
---thx to infinite yield I've seen the script of noclip and there's a "CanCollide == true" so the script
---only executed if the base part is CanCollide true,
+--[[ Created by bovi 
+	https://www.youtube.com/channel/UC-UrW0oH-32o37ZrJmZy2Lw
+	https://discord.gg/CVTdeGY7gD
+--]]
 
-local Clip = false
-local Noclipping = nil
-local speaker = game:GetService("Players").LocalPlayer
 
-local function getplrs(s)
-sl = s:lower()
-if sl == "others" then
-for i,v in pairs(game.Players:GetPlayers() do
-if v ~= game.Players.LocalPlayer then
-return v
-end
-end
-end
+
+
+local function onDeleteMethodClick()
+	
+
+	-- Instances
+
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextLabel_2 = Instance.new("TextLabel")
+
+	-- Properties
+
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.new(0.211765, 0.211765, 0.211765)
+	Frame.BorderColor3 = Color3.new(1, 0, 0)
+	Frame.BorderSizePixel = 4
+	Frame.Position = UDim2.new(0.345198691, 0, 0.00872820243, 0)
+	Frame.Size = UDim2.new(0, 483, 0, 102)
+
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.BorderColor3 = Color3.new(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Position = UDim2.new(0.260869563, 0, 0.0784313753, 0)
+	TextLabel.Size = UDim2.new(0, 230, 0, 40)
+	TextLabel.Font = Enum.Font.LuckiestGuy
+	TextLabel.Text = "Warning"
+	TextLabel.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel.TextSize = 45
+	TextLabel.TextWrapped = true
+
+	TextLabel_2.Parent = TextLabel
+	TextLabel_2.BackgroundColor3 = Color3.new(1, 1, 1)
+	TextLabel_2.BackgroundTransparency = 1
+	TextLabel_2.BorderColor3 = Color3.new(0, 0, 0)
+	TextLabel_2.BorderSizePixel = 0
+	TextLabel_2.Position = UDim2.new(-0.20869565, 0, 0.849999905, 0)
+	TextLabel_2.Size = UDim2.new(0, 316, 0, 50)
+	TextLabel_2.Font = Enum.Font.FredokaOne
+	TextLabel_2.Text = "Rejoin To Disable, Deletes any workspace object besides players that exceeds the 100 rotationThreshold limit"
+	TextLabel_2.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel_2.TextScaled = true
+	TextLabel_2.TextSize = 14
+	TextLabel_2.TextWrapped = true
+
+	wait(7)
+
+	ScreenGui:Destroy()
+	
+	local rotationThreshold = 100 -- Adjust this value based on your needs
+
+	local function isPartRotatingTooFast(part)
+		if part and part:IsA("BasePart") then
+			local lastRotation = part.Rotation
+			wait(0.1) -- Wait a short time to get a second rotation value for comparison
+			local currentRotation = part.Rotation
+			local rotationChange = (currentRotation - lastRotation).Magnitude
+			return rotationChange > rotationThreshold
+		end
+		return false
+	end
+
+	local function isObjectInCharacter(obj)
+		local localPlayer = game.Players.LocalPlayer
+		if localPlayer and localPlayer.Character then
+			return obj:IsDescendantOf(localPlayer.Character)
+		end
+		return false
+	end
+
+	local function deleteRapidlyRotatingObjects()
+		local objects = game.Workspace:GetDescendants()
+
+		for _, obj in pairs(objects) do
+			if isPartRotatingTooFast(obj) and not isObjectInCharacter(obj) then
+				local partName = obj.Name
+				obj:Destroy()
+
+				-- Show the GUI with the deleted part's name
+				local ScreenGui = Instance.new("ScreenGui")
+				ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+				ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+				local Deleted = Instance.new("TextLabel")
+				Deleted.Name = "Deleted"
+				Deleted.Parent = ScreenGui
+				Deleted.BackgroundColor3 = Color3.new(1, 1, 1)
+				Deleted.BackgroundTransparency = 1
+				Deleted.BorderColor3 = Color3.new(0, 0, 0)
+				Deleted.BorderSizePixel = 0
+				Deleted.Position = UDim2.new(0.438754708, 0, 0.468827933, 0)
+				Deleted.Size = UDim2.new(0, 200, 0, 50)
+				Deleted.Font = Enum.Font.Creepster
+				Deleted.Text = "Deleted: " .. partName -- Show the part's name in the text
+				Deleted.TextColor3 = Color3.new(1, 0, 0.0156863)
+				Deleted.TextSize = 14
+
+				-- Destroy the GUI after a short delay (You can adjust the time as needed)
+				wait(5)
+				ScreenGui:Destroy()
+			end
+		end
+	end
+
+	while true do
+		deleteRapidlyRotatingObjects()
+		wait(1) -- Adjust the time interval between checks (1 second in this example)
+	end
+
+	
 end
 
- function enable()
-	Clip = false
-	wait(0.1)
-	local function NoclipLoop()
-		if Clip == false and getplrs("others").Character ~= nil then
-			for _, child in pairs(getplrs("others").Character:GetDescendants()) do
-				if child:IsA("BasePart") and child.CanCollide == true then
-					child.CanCollide = false
+local function onVelMethodClick()
+	
+end
+
+local function onCollisionMethodClick()
+	--[[
+
+Warning
+
+
+]]
+
+
+	-- Instances
+
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextLabel_2 = Instance.new("TextLabel")
+
+	-- Properties
+
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.new(0.211765, 0.211765, 0.211765)
+	Frame.BorderColor3 = Color3.new(1, 0, 0)
+	Frame.BorderSizePixel = 4
+	Frame.Position = UDim2.new(0.345198691, 0, 0.00872820243, 0)
+	Frame.Size = UDim2.new(0, 483, 0, 102)
+
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+	TextLabel.BackgroundTransparency = 1
+	TextLabel.BorderColor3 = Color3.new(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Position = UDim2.new(0.260869563, 0, 0.0784313753, 0)
+	TextLabel.Size = UDim2.new(0, 230, 0, 40)
+	TextLabel.Font = Enum.Font.LuckiestGuy
+	TextLabel.Text = "Warning"
+	TextLabel.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel.TextSize = 45
+	TextLabel.TextWrapped = true
+
+	TextLabel_2.Parent = TextLabel
+	TextLabel_2.BackgroundColor3 = Color3.new(1, 1, 1)
+	TextLabel_2.BackgroundTransparency = 1
+	TextLabel_2.BorderColor3 = Color3.new(0, 0, 0)
+	TextLabel_2.BorderSizePixel = 0
+	TextLabel_2.Position = UDim2.new(-0.20869565, 0, 0.849999905, 0)
+	TextLabel_2.Size = UDim2.new(0, 316, 0, 50)
+	TextLabel_2.Font = Enum.Font.FredokaOne
+	TextLabel_2.Text = "Detects players, Disables Collisions if suspected of fling, Please Give Some Time To Load. Rejoin to disable"
+	TextLabel_2.TextColor3 = Color3.new(1, 1, 1)
+	TextLabel_2.TextScaled = true
+	TextLabel_2.TextSize = 14
+	TextLabel_2.TextWrapped = true
+
+	wait(7)
+
+	ScreenGui:Destroy()
+	
+	local rotationThreshold = 100 -- Adjust this value based on your needs
+	local transparencyValue = 0.5 -- Adjust this value to control the level of transparency
+	local outlineColor = BrickColor.new("Bright red") -- You can change the color as needed
+
+	local selectionBoxes = {} -- Dictionary to store SelectionBox objects for each target
+
+	local function isPartRotatingTooFast(part)
+		if part and part:IsA("BasePart") then
+			local lastRotation = part.Rotation
+			wait(0.1) -- Wait a short time to get a second rotation value for comparison
+			local currentRotation = part.Rotation
+			local rotationChange = (currentRotation - lastRotation).Magnitude
+			return rotationChange > rotationThreshold
+		end
+		return false
+	end
+
+	local function isPartInLocalPlayerCharacter(part)
+		local localPlayer = game.Players.LocalPlayer
+		if localPlayer and localPlayer.Character then
+			return part:IsDescendantOf(localPlayer.Character)
+		end
+		return false
+	end
+
+	local function createSelectionBox(target)
+		local outline = Instance.new("SelectionBox")
+		outline.Name = "RedOutline"
+		outline.Color3 = outlineColor.Color
+		outline.Adornee = target
+		outline.Parent = target
+		return outline
+	end
+
+	local function modifyRapidlyRotatingObjects()
+		local objects = game.Workspace:GetDescendants()
+
+		-- Update existing SelectionBoxes and remove non-existent targets
+		for target, selectionBox in pairs(selectionBoxes) do
+			if target:IsDescendantOf(game.Workspace) and not isPartInLocalPlayerCharacter(target) then
+				if not isPartRotatingTooFast(target) then
+					-- If the target is not rotating rapidly, remove the SelectionBox
+					selectionBox:Destroy()
+					selectionBoxes[target] = nil
+				end
+			else
+				-- If the target is no longer in the workspace or part of the local player's character, remove the SelectionBox
+				selectionBox:Destroy()
+				selectionBoxes[target] = nil
+			end
+		end
+
+		-- Add SelectionBoxes for new rapidly rotating objects
+		for _, obj in pairs(objects) do
+			if not isPartInLocalPlayerCharacter(obj) and isPartRotatingTooFast(obj) and not selectionBoxes[obj] then
+				obj.Transparency = transparencyValue
+				obj.CanCollide = false
+				selectionBoxes[obj] = createSelectionBox(obj)
+			end
+		end
+	end
+
+	while true do
+		modifyRapidlyRotatingObjects()
+		wait(1) -- Adjust the time interval between checks (1 second in this example)
+	end
+
+	
+end
+
+local function onAvoidMethodClick()
+	local teleportDistance = 25 -- Adjust this value to set the teleport distance in studs
+	local transparencyThreshold = 50 -- Adjust this value to set the distance where the mesh becomes transparent
+	local rotationThreshold = 100 -- Adjust this value based on your needs
+
+	local function isObjectInCharacter(obj)
+		local localPlayer = game.Players.LocalPlayer
+		if localPlayer and localPlayer.Character then
+			return obj:IsDescendantOf(localPlayer.Character)
+		end
+		return false
+	end
+
+	local function isPartRotatingTooFast(part)
+		if part and part:IsA("BasePart") then
+			local lastRotation = part.Rotation
+			wait(0.1) -- Wait a short time to get a second rotation value for comparison
+			local currentRotation = part.Rotation
+			local rotationChange = (currentRotation - lastRotation).Magnitude
+			return rotationChange > rotationThreshold
+		end
+		return false
+	end
+
+	local function teleportAwayFromPart(part)
+		local localPlayer = game.Players.LocalPlayer
+		if localPlayer and localPlayer.Character and part and part:IsA("BasePart") then
+			if isPartRotatingTooFast(part) then
+				local character = localPlayer.Character
+				local characterRoot = character:FindFirstChild("HumanoidRootPart")
+				if characterRoot then
+					local distance = (characterRoot.Position - part.Position).Magnitude
+					if distance <= teleportDistance then
+						local direction = (characterRoot.Position - part.Position).Unit
+						local teleportPosition = part.Position + direction * Vector3.new(teleportDistance, 0, teleportDistance)
+						characterRoot.CFrame = CFrame.new(teleportPosition)
+					end
 				end
 			end
 		end
 	end
-	Noclipping = RunService.Stepped:Connect(NoclipLoop)
-end
 
- function disable()
-	if Noclipping then
-		Noclipping:Disconnect()
+	local function createTeleportRadius(part)
+		local localPlayer = game.Players.LocalPlayer
+		if localPlayer and localPlayer.Character and part and part:IsA("BasePart") then
+			local radius = part:FindFirstChild("TeleportRadius")
+			if isPartRotatingTooFast(part) then
+				if not radius then
+					radius = Instance.new("Part")
+					radius.Name = "TeleportRadius"
+					radius.Anchored = true
+					radius.CanCollide = false
+					radius.Transparency = 1
+					radius.Size = Vector3.new(2 * teleportDistance, 0.2, 2 * teleportDistance) -- Twice the teleportDistance to cover each side
+					radius.CFrame = CFrame.new(part.Position)
+					local mesh = Instance.new("CylinderMesh")
+					mesh.Scale = Vector3.new(1, 0.2, 1)
+					mesh.Parent = radius
+					radius.Parent = part
+				end
+				local localPlayer = game.Players.LocalPlayer
+				local character = localPlayer.Character
+				local characterRoot = character:FindFirstChild("HumanoidRootPart")
+				if characterRoot then
+					local direction = (characterRoot.Position - part.Position).Unit
+					local lookVector = Vector3.new(direction.X, 0, direction.Z)
+					radius.CFrame = CFrame.new(part.Position) * CFrame.Angles(0, math.atan2(lookVector.X, lookVector.Z), 0)
+					local distance = (characterRoot.Position - part.Position).Magnitude
+					if distance <= transparencyThreshold then
+						radius.Transparency = 0.5
+					else
+						radius.Transparency = 1
+					end
+					local hue = ((distance - transparencyThreshold) / (teleportDistance - transparencyThreshold)) * 240
+					local rainbowColor = Color3.fromHSV(hue / 360, 1, 1)
+					radius.BrickColor = BrickColor.new(Color3.new(rainbowColor.R, rainbowColor.G, rainbowColor.B)) -- Convert the rainbow color to a BrickColor
+				end
+			else
+				if radius then
+					radius:Destroy()
+				end
+			end
+		end
 	end
-	Clip = true
+
+	local function handleParts()
+		local objects = game.Workspace:GetDescendants()
+
+		for _, obj in pairs(objects) do
+			if not isObjectInCharacter(obj) then
+				teleportAwayFromPart(obj)
+				createTeleportRadius(obj)
+			end
+		end
+	end
+
+	game:GetService("RunService").RenderStepped:Connect(function()
+		handleParts()
+	end)
+
 end
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/turtle"))()
-
-local Window = library:Window("Anti Fling by GGH52Lan")
-
-local dropdown = Window:Dropdown("Mode", {"Enable", "Disable"}, function(o)
-    if o == "Enable" then
-     enable()
-     if Clip == false then
-     game:GetService("StarterGui"):SetCore("SendNotification",{
- Title = "GGH52Lan";
- Text = "Noclipping enable";
- Duration = 5;
- Icon = "rbxassetid://14260295451";
-})
+local function DestroyGui()
+    ScreenGui:Destroy()
 end
-     else
-     disable()
-     if Clip == true then
-     game:GetService("StarterGui"):SetCore("SendNotification",{
- Title = "GGH52Lan";
- Text = "Noclipping disable";
- Duration = 5;
- Icon = "rbxassetid://14260295451";
-})
-end
-    end
-end)
+
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local DelMethod = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local VelMethod = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local CollisionMethod = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local AvoidMethod = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local DestroyGui = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+
+-- Properties
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.new(0.231373, 0.231373, 0.231373)
+MainFrame.BorderColor3 = Color3.new(1, 0, 0)
+MainFrame.BorderSizePixel = 4
+MainFrame.Position = UDim2.new(0.714788437, 0, 0.137157127, 0)
+MainFrame.Size = UDim2.new(0, 182, 0, 435)
+
+TextLabel.Parent = MainFrame
+TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+TextLabel.BackgroundTransparency = 1
+TextLabel.BorderColor3 = Color3.new(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.0769230798, 0, 0.0396328978, 0)
+TextLabel.Size = UDim2.new(0, 153, 0, 69)
+TextLabel.Font = Enum.Font.LuckiestGuy
+TextLabel.Text = "Made By Bovi"
+TextLabel.TextColor3 = Color3.new(1, 1, 1)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14
+TextLabel.TextWrapped = true
+
+DelMethod.Name = "DelMethod"
+DelMethod.Parent = MainFrame
+DelMethod.BackgroundColor3 = Color3.new(0.129412, 0.129412, 0.129412)
+DelMethod.BorderColor3 = Color3.new(0, 0, 0)
+DelMethod.BorderSizePixel = 0
+DelMethod.Position = UDim2.new(0.0769230798, 0, 0.22758621, 0)
+DelMethod.Size = UDim2.new(0, 153, 0, 50)
+DelMethod.Font = Enum.Font.Highway
+DelMethod.Text = "Delete Method"
+DelMethod.TextColor3 = Color3.new(1, 1, 1)
+DelMethod.TextScaled = true
+DelMethod.TextSize = 14
+DelMethod.TextWrapped = true
+DelMethod.Activated:Connect(onDeleteMethodClick)
+
+UICorner.Parent = DelMethod
+UICorner.CornerRadius = UDim.new(0, 9)
+
+VelMethod.Name = "VelMethod"
+VelMethod.Parent = MainFrame
+VelMethod.BackgroundColor3 = Color3.new(0.129412, 0.129412, 0.129412)
+VelMethod.BorderColor3 = Color3.new(0, 0, 0)
+VelMethod.BorderSizePixel = 0
+VelMethod.Position = UDim2.new(0.0769230798, 0, 0.377011478, 0)
+VelMethod.Size = UDim2.new(0, 153, 0, 50)
+VelMethod.Font = Enum.Font.Highway
+VelMethod.Text = "Set Vel Method"
+VelMethod.TextColor3 = Color3.new(1, 1, 1)
+VelMethod.TextScaled = true
+VelMethod.TextSize = 14
+VelMethod.TextWrapped = true
+VelMethod.Activated:Connect(onVelMethodClick)
+
+UICorner_2.Parent = VelMethod
+UICorner_2.CornerRadius = UDim.new(0, 9)
+
+CollisionMethod.Name = "CollisionMethod"
+CollisionMethod.Parent = MainFrame
+CollisionMethod.BackgroundColor3 = Color3.new(0.129412, 0.129412, 0.129412)
+CollisionMethod.BorderColor3 = Color3.new(0, 0, 0)
+CollisionMethod.BorderSizePixel = 0
+CollisionMethod.Position = UDim2.new(0.0769230798, 0, 0.528735638, 0)
+CollisionMethod.Size = UDim2.new(0, 153, 0, 50)
+CollisionMethod.Font = Enum.Font.Highway
+CollisionMethod.Text = "Collision Method"
+CollisionMethod.TextColor3 = Color3.new(1, 1, 1)
+CollisionMethod.TextScaled = true
+CollisionMethod.TextSize = 14
+CollisionMethod.TextWrapped = true
+CollisionMethod.Activated:Connect(onCollisionMethodClick)
+
+UICorner_3.Parent = CollisionMethod
+UICorner_3.CornerRadius = UDim.new(0, 9)
+
+AvoidMethod.Name = "AvoidMethod"
+AvoidMethod.Parent = MainFrame
+AvoidMethod.BackgroundColor3 = Color3.new(0.129412, 0.129412, 0.129412)
+AvoidMethod.BorderColor3 = Color3.new(0, 0, 0)
+AvoidMethod.BorderSizePixel = 0
+AvoidMethod.Position = UDim2.new(0.0769230798, 0, 0.67126441, 0)
+AvoidMethod.Size = UDim2.new(0, 153, 0, 50)
+AvoidMethod.Font = Enum.Font.Highway
+AvoidMethod.Text = "Avoid Method"
+AvoidMethod.TextColor3 = Color3.new(1, 1, 1)
+AvoidMethod.TextScaled = true
+AvoidMethod.TextSize = 14
+AvoidMethod.TextWrapped = true
+AvoidMethod.Activated:Connect(onAvoidMethodClick)
+
+UICorner_4.Parent = AvoidMethod
+UICorner_4.CornerRadius = UDim.new(0, 9)
+
+DestroyGui.Name = "DestroyGui"
+DestroyGui.Parent = MainFrame
+DestroyGui.BackgroundColor3 = Color3.new(0.666667, 0.258824, 0.0980392)
+DestroyGui.BorderColor3 = Color3.new(0, 0, 0)
+DestroyGui.BorderSizePixel = 0
+DestroyGui.Position = UDim2.new(0.0769230798, 0, 0.827586234, 0)
+DestroyGui.Size = UDim2.new(0, 153, 0, 50)
+DestroyGui.Font = Enum.Font.Highway
+DestroyGui.Text = "Destroy Gui"
+DestroyGui.TextColor3 = Color3.new(1, 1, 1)
+DestroyGui.TextScaled = true
+DestroyGui.TextSize = 14
+DestroyGui.TextWrapped = true
+DestroyGui.Activated:Connect(DestroyGui)
+
+UICorner_5.Parent = DestroyGui
+UICorner_5.CornerRadius = UDim.new(0, 9)
