@@ -31,7 +31,8 @@
 	end
 ]]
 
-
+local G = {}
+local C = nil
 	local function Collide(plr)
 	if plr and plr.Character and plr ~= game.Players.LocalPlayer then
 	for i,v in pairs (plr.Character:GetDescendants()) do
@@ -57,4 +58,20 @@
  Duration = 5;
  Icon = "rbxassetid://14260295451";
 })
-	game:GetService"RunService".RenderStepped: Connect (Enable)
+
+local function G:Enable()
+	C = game:GetService"RunService".RenderStepped: Connect (Enable)
+        end
+local function G:Disable()
+   C: Disconnect ()
+for i,v in pairs(game.Players:GetPlayers()) do
+for h,b in pairs(v.Character:GetDescendants()) do
+if b:IsA"BasePart" then
+b.CanCollide = true
+end
+end
+end
+end
+
+G:Enable()
+return G
