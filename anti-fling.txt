@@ -65,9 +65,11 @@ function G:Enable()
 function G:Disable()
    C: Disconnect ()
 for i,v in pairs(game.Players:GetPlayers()) do
+if v ~= plr then
 for h,b in pairs(v.Character:GetDescendants()) do
-if b:IsA"BasePart" then
+if b:IsA"BasePart" and v.CanCollide == false then
 b.CanCollide = true
+end
 end
 end
 end
