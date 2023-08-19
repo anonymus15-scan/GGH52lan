@@ -59,10 +59,10 @@ local C = nil
  Icon = "rbxassetid://14260295451";
 })
 
-local function G:Enable()
+function G:Enable()
 	C = game:GetService"RunService".RenderStepped: Connect (Enable)
         end
-local function G:Disable()
+function G:Disable()
    C: Disconnect ()
 for i,v in pairs(game.Players:GetPlayers()) do
 for h,b in pairs(v.Character:GetDescendants()) do
