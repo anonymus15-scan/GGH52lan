@@ -61,5 +61,3 @@ function G:ClearTable(T)
 end
 
 return G
-end
-return FoundPlayers
