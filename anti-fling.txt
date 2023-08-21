@@ -38,6 +38,9 @@ local C = nil
 	for i,v in pairs (plr.Character:GetDescendants()) do
 	if v:IsA"BasePart" and v.CanCollide == true then
 	v.CanCollide = false
+     v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+    v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+    v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
 	end
 	end
 	end
@@ -54,7 +57,7 @@ local C = nil
 	
 	game:GetService("StarterGui"):SetCore("SendNotification",{
  Title = "GGH52Lan";
- Text = "Executed V2 Coming!";
+ Text = "Executed";
  Duration = 5;
  Icon = "rbxassetid://14260295451";
 })
