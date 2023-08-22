@@ -99,6 +99,8 @@ for i,v in pairs(lastPosOftoolgiver) do
     i.CanCollide = false
     i.Transparency = 0
 end
+table.clear(lastPosOftoolgiver)
+print(lastPosOftoolgiver[1])
 wait(1)
 end
 
@@ -125,30 +127,28 @@ loop = false
     loop = false
 end
 
-local Coll = false
+local Coll
 local function Wcollision(bool)
 if bool then
-Coll = bool
+ Coll = G.RunService.RenderStepped:Connect(function()
     for i,v in pairs(workspace.Tycoons.Tycoons:GetDescendants()) do
    if v:IsA"Part" and v.Parent.Name:match("Wall%d") then
-    repeat 
     v.CanCollide = false
-    wait(.1)
-    v.CanCollide = false
-    until not Coll
     end
 end
+end)
 else
-Coll = bool
+Coll:Disconnect()
+notify(nil, "Loading..")
 for i,v in pairs(workspace.Tycoons.Tycoons:GetDescendants()) do
     if v:IsA"Part" and v.Parent.Name:match("Wall%d") then
-    repeat 
+   repeat 
     v.CanCollide = true
     wait(.1)
-    v.CanCollide = true
     until v.CanCollide == true
     end
 end
+notify(nil, "Disabled wall Collision")
 end
 end
 
@@ -517,7 +517,7 @@ KillW:Button("Kill", function()
     bring(target)
     Tool:Activate()
     if target.Character.Humanoid.Health <= 0 then
-    Lop = false
+    
     break 
     end
     wait(.1)
@@ -538,7 +538,7 @@ KillW:Button("Kill all", function()
     bring(target)
     Tool:Activate()
      if target.Character.Humanoid.Health <= 0 then
-     Lop = false
+     
     break 
     end
     wait(.1)
@@ -560,12 +560,16 @@ KillW:Button("Equip Tool", function()
     plr.Backpack:GetChildren()[1].Parent = plr.Character
     
     end
+    wait(.1)
 end)
 
 KillW:Button("Drop Tool", function()
-    if plr.Character: FindFirstChildOfClass"Tool" then
-    plr.Character: FindFirstChildOfClass"Tool".Parent = workspace
+for i,v in pairs(plr.Character:GetChildren()) do
+    if v:IsA"Tool" then
+    v.Parent = workspace
     end
+    end
+    wait(.1)
 end)
 
 KillW:Button("Equip all Tool", function()
